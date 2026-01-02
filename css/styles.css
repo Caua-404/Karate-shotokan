@@ -1,0 +1,930 @@
+/* =========================================
+   RESET / VARIÁVEIS
+========================================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --accent: #ff3b1f;
+  --accent-soft: #ff5530;
+  --bg-main: #05070a;
+  --bg-section: #07090d;
+  --text-light: #ffffff;
+  --text-muted: #c7c9d4;
+
+  --font-ui: "Poppins", sans-serif;
+  --font-title: "Space Grotesk", sans-serif;
+}
+
+/* =========================================
+   BASE
+========================================= */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-main);
+  font-family: var(--font-ui);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* links genéricos */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================
+   HERO + CARROSSEL
+========================================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 40px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* fundo do hero */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+/* slides do carrossel */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; /* imagem à esquerda */
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 1.1s ease-in-out,
+    transform 6s ease-out;
+}
+
+.hero-slide.is-active {
+  opacity: 0.7;
+  transform: scale(1.02);
+}
+
+/* vinheta / gradiente por cima */
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background:
+    radial-gradient(circle at right, rgba(120, 20, 0, 0.45), transparent 60%),
+    radial-gradient(circle at left, rgba(255, 255, 255, 0.05), transparent 70%),
+    radial-gradient(circle at center, transparent 0, rgba(0, 0, 0, 0.9) 80%);
+  pointer-events: none;
+}
+
+/* =========================================
+   NAVBAR SUPERIOR
+========================================= */
+.top-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center; /* menu centralizado */
+  align-items: center;
+}
+
+/* marca Shotokan no canto esquerdo */
+.brand-top-left {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 20%, #fff, var(--accent) 60%, #140606 100%);
+  box-shadow: 0 0 12px rgba(255, 70, 40, 0.9);
+}
+
+.brand-mark img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* menu */
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-light);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================================
+   CONTEÚDO DO HERO
+========================================= */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* texto para direita */
+  padding-right: 120px;
+}
+
+.hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* torii */
+.hero-symbol {
+  width: 70px;
+  height: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 16px rgba(255, 90, 40, 0.8));
+}
+
+/* título principal */
+.title {
+  font-family: var(--font-title);
+  font-size: 3.6rem;
+  letter-spacing: 0.34em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.title span {
+  display: block;
+}
+
+/* botões do hero */
+.cta-row {
+  display: flex;
+  gap: 18px;
+}
+
+.btn-ghost,
+.btn-primary {
+  padding: 12px 30px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Localização */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-light);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Aula experimental */
+.btn-primary {
+  background: #ffffff;
+  color: #000;
+}
+
+.btn-primary:hover {
+  background: #e6e6e6;
+}
+
+/* =========================================
+   SEÇÃO: DOJO KU (TÍTULO + QUADRO KANJI)
+========================================= */
+
+.dojo-section {
+  width: 100%;
+  padding: 120px 70px;
+  background: var(--bg-section);
+  display: flex;
+  justify-content: center;
+}
+
+.dojo-container {
+  max-width: 1300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+/* texto do dojo ku */
+.dojo-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.dojo-title {
+  font-family: var(--font-title);
+  font-size: 3.2rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.dojo-title span {
+  display: block;
+}
+
+.dojo-description {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.dojo-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+}
+
+/* quadro branco com kanji */
+.hero-symbol-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-symbol-box {
+  width: 220px;
+  height: 220px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.hero-symbol-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* =========================================
+   SEÇÕES DE CONTEÚDO (DOJO KUN / HISTÓRIA)
+========================================= */
+
+.content-section {
+  width: 100%;
+  padding: 120px 70px;
+  background: var(--bg-section);
+}
+
+/* grid genérico 2 colunas */
+.content-grid {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 40px;
+}
+
+/* título e subtítulo dentro dessas seções */
+.section-title {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin: 14px 0;
+}
+
+/* textos genéricos */
+.content-section p {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+/* =======================
+   DOJO KUN – BLOCO 1
+======================= */
+
+.dojo-kun-text {
+  padding-right: 10px;
+}
+
+.dojo-kun-text p strong {
+  font-weight: 600;
+}
+
+/* caixa com lista JP / PT */
+.dojo-kun-box {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  padding: 28px 26px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.30);
+}
+
+.dojo-kun-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dojo-kun-list li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
+
+.dojo-kun-list li:last-child {
+  border-bottom: none;
+}
+
+.dojo-kun-list .jp {
+  display: block;
+  font-family: "Noto Serif JP", serif;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.dojo-kun-list .jp em {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.dojo-kun-list .pt {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.dojo-kun-note {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-left: 3px solid rgba(255, 255, 255, 0.18);
+  padding-left: 10px;
+}
+
+/* =======================
+   DOJO KUN – BLOCO 2
+======================= */
+
+.dojo-kun-extra {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dojo-kun-extra .section-subtitle {
+  margin-bottom: 8px;
+}
+
+/* =======================
+   HISTÓRIA DO KARATÊ
+======================= */
+
+.historia-section {
+  /* só para semântica, herda de .content-section */
+}
+
+.historia-extra {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media (max-width: 1100px) {
+  .hero-content {
+    padding-right: 60px;
+  }
+
+  .title {
+    font-size: 3rem;
+    letter-spacing: 0.28em;
+  }
+
+  .dojo-container {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 980px) {
+  .hero {
+    padding: 30px 40px;
+  }
+
+  .hero-content {
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .hero-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .dojo-section {
+    padding: 90px 40px;
+  }
+
+  .dojo-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dojo-description {
+    margin: 0 auto;
+  }
+
+  .hero-symbol-box {
+    margin-top: 10px;
+  }
+
+  .content-section {
+    padding: 90px 40px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 24px 20px;
+  }
+
+  .nav-links {
+    display: none; /* depois podemos trocar por menu hambúrguer */
+  }
+
+  .title {
+    font-size: 2.6rem;
+    letter-spacing: 0.24em;
+  }
+
+  .cta-row {
+    flex-direction: column;
+  }
+
+  .dojo-section {
+    padding: 70px 24px;
+  }
+
+  .content-section {
+    padding: 70px 24px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* =========================================
+   NOVOS BLOCOS HISTÓRICOS / FAMÍLIA / MAPA
+========================================= */
+
+.mapa-section {
+  background: #05070f;
+}
+
+.mapa-grid {
+  align-items: center;
+}
+
+.mapa-text p {
+  margin-bottom: 12px;
+}
+
+.mapa-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.mapa-visual img {
+  max-width: 520px;
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 980px) {
+  .mapa-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .mapa-visual {
+    margin-top: 20px;
+  }
+}
+
+/* ajusta para <a> ter aparência de botão */
+.btn-ghost,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   FAIXAS / GRADUAÇÕES
+========================================= */
+
+.faixa-section {
+  /* já herda padding e background de .content-section */
+}
+
+/* organiza melhor o grid dessa sessão */
+.faixa-section .content-grid {
+  align-items: flex-start;
+}
+
+/* tabela principal */
+.belt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+}
+
+/* cabeçalho */
+.belt-table thead {
+  background: linear-gradient(90deg, #181b24, #10131b);
+}
+
+.belt-table th {
+  text-align: left;
+  padding: 14px 18px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* linhas */
+.belt-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: top;
+}
+
+.belt-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* zebra leve */
+.belt-table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* primeira coluna: “chips” de cor da faixa */
+.belt-table tbody td:first-child {
+  position: relative;
+  padding-left: 32px;
+  font-weight: 500;
+}
+
+/* bolinha de cor ao lado do nome da faixa */
+.belt-table tbody td:first-child::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+/* cores por linha (ordem da sua tabela) */
+.belt-table tbody tr:nth-child(1) td:first-child::before {
+  background: #f5f5f5; /* branca */
+}
+.belt-table tbody tr:nth-child(2) td:first-child::before {
+  background: #ffcc00; /* amarela */
+}
+.belt-table tbody tr:nth-child(3) td:first-child::before {
+  background: #ff0000; /* Vermelha */
+}
+.belt-table tbody tr:nth-child(4) td:first-child::before {
+  background: #fd7b02; /* Laranja */
+}
+.belt-table tbody tr:nth-child(5) td:first-child::before {
+  background: #0e9701; /* Verde */
+}
+.belt-table tbody tr:nth-child(6) td:first-child::before {
+  background: #49008d; /* Roxo */
+}
+.belt-table tbody tr:nth-child(7) td:first-child::before {
+  background: #582b01; /* Marrom */
+}
+.belt-table tbody tr:nth-child(8) td:first-child::before {
+  background: #000000; /* Preta */
+}
+
+/* coluna de tempo com foco em leitura */
+.belt-table td:last-child {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* wrapper para scroll horizontal em telas pequenas */
+.faixa-section .content-grid > div:last-child {
+  overflow-x: auto;
+}
+
+/* nota embaixo da tabela (já está inline no HTML) */
+.faixa-section p[style*="font-size:0.85rem"] {
+  margin-top: 10px;
+}
+
+/* RESPONSIVO – FAIXAS */
+@media (max-width: 980px) {
+  .belt-table th,
+  .belt-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .belt-table {
+    font-size: 0.9rem;
+  }
+
+  .belt-table th {
+    font-size: 0.72rem;
+  }
+
+  .belt-table tbody td:first-child {
+    padding-left: 30px;
+  }
+}
+
+/* =========================================
+   KATAS – LISTA E TABELA
+========================================= */
+
+.katas-section {
+  margin-top: 40px;
+}
+
+.katas-section .katas-intro p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===== BOTÕES DOS KATAS ===== */
+
+.katas-list {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.katas-list button {
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.katas-list button:hover {
+  background: var(--accent);
+  border-color: var(--accent-soft);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 80, 40, 0.35);
+}
+
+/* ===== ÁREA DO KATA SELECIONADO ===== */
+
+.kata-display {
+  margin-top: 45px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 18px;
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kata-display h3 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+/* ===== TABELA PRINCIPAL ===== */
+
+.kata-moves table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kata-moves thead {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.kata-moves th {
+  padding: 14px;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* linhas do corpo */
+.kata-moves td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.kata-moves tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* zebra suave */
+.kata-moves tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* número */
+.kata-number {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* japonês */
+.kata-moves td:nth-child(2),
+.kata-moves td:nth-child(3) {
+  font-family: "Noto Serif JP", serif;
+  font-size: 0.95rem;
+}
+
+/* legenda inferior */
+.kata-note {
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+/* =========================================
+   RESPONSIVO – KATAS
+========================================= */
+
+@media (max-width: 980px) {
+  .katas-list button {
+    font-size: 0.78rem;
+    padding: 12px;
+  }
+
+  .kata-moves table {
+    font-size: 0.88rem;
+  }
+
+  .kata-display {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .katas-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .kata-moves table, 
+  .kata-moves thead, 
+  .kata-moves tbody, 
+  .kata-moves th, 
+  .kata-moves td, 
+  .kata-moves tr {
+    display: block;
+    width: 100%;
+  }
+
+  .kata-moves tr {
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .kata-moves td {
+    border-bottom: none !important;
+    padding: 6px 0;
+  }
+
+  .kata-moves th {
+    display: none;
+  }
+
+  .kata-display h3 {
+    font-size: 1.6rem;
+  }
+}
